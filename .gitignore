@@ -1,32 +1,14 @@
-# Prerequisites
-*.d
+# Ignore everything (especially on the build folder)
+*
+!*/
+/build
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# but allow c++ code
+!*.cpp
+!*.h
+!*.hpp
+!CMakeLists.txt
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+!.gitignore
+!README.md
+!LICENSE
