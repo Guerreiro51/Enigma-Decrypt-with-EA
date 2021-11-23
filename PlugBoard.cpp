@@ -12,7 +12,7 @@ void PlugBoard::AddConnection(int input, int output)
     //Caso ja tenha alguma letra conectada apenas retorna
     if(this->connections.count(input) || this->connections.count(output))
     {
-        cout << "Connection " << (char)(input+65) <<  (char)(output+65) << "not established" << endl;
+        cout << "Connection " << (char)(input+65) <<  (char)(output+65) << " not established" << endl;
         cout << "At least one of the keys is already connected" << endl;
         return;
     }    

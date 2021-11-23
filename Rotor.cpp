@@ -9,17 +9,17 @@ Rotor::Rotor(int type,int currentposition,int ringsetting)
     switch (type)
     {
     case 1:
-        this->SetupConnections("EJMZALYXVBWFCRQUONTSPIKHGD");
+        this->SetupConnections("EKMFLGDQVZNTOWYHXUSPAIBRCJ");
         this->notch = 16;
         break;
 
     case 2:
-        this->SetupConnections("YRUHQSLDPXNGOKMIEBFZCWVJAT");
+        this->SetupConnections("AJDKSIRUXBLHWTMCQGZNPYFVOE");
         this->notch = 4;
         break;
 
     case 3:
-        this->SetupConnections("FVPJIAOYEDRZXWGCTKUQSBNMHL");
+        this->SetupConnections("BDFHJLCPRTXVZNYEIWGAKMUSQO");
         this->notch = 21;
         break;
     case 4:
@@ -55,27 +55,18 @@ Rotor::Rotor(int type,int currentposition,int ringsetting)
 }
 
 int Rotor::Forward(int input)
-{
-    // if(this->type == 1)
-    //     cout << "Input rotor " << this->type << ": " << input << endl;
- 
+{ 
     int shift = this->currentposition - this->ringsetting;
 
-    // if(this->type == 1)
-    //     cout << "Shift rotor " << this->type << ": " << shift << endl;
-
-    // if(this->type == 1)
-    //     cout << "Saida rotor " << this->type << ": " << (char) (this->conections[(input + shift + 26) % 26]+65)<< endl;
-
-    // return  (this->conections[(input + shift + 26) % 26] - shift + 26) % 26;
-    return  this->conections[(input + shift + 26) % 26];
+    return  (this->conections[(input + shift + 26) % 26] - shift + 26) % 26;
 }
 
 int Rotor::Backward(int input)
 {
     int shift = this->currentposition - this->ringsetting;
-    // return  (this->reverseconections[(input + shift + 26) % 26] - shift + 26) % 26;
-    return  this->reverseconections[(input + shift + 26) % 26];
+    
+    return  (this->reverseconections[(input + shift + 26) % 26] - shift + 26) % 26;
+    
 }
 
 
@@ -97,11 +88,11 @@ bool Rotor::IsAtNotch()
 void Rotor::SetupConnections(string arrangement)
 {
     int i;
+
     for(i=0;i<26;i++)
     {
-        this->conections.push_back(arrangement[i]-65);
-        this->reverseconections.push_back(arrangement[25-i]-65);
+        this->conections[i]=(arrangement[i]-65);
+        this->reverseconections[arrangement[i]-65] = i;
     }
-
 
 }

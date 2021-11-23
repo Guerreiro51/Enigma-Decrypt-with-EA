@@ -22,5 +22,5 @@ Reflector::Reflector(char type)
 
 int Reflector::ReturnLetter(int input)
 {
-    return this->conections[input];
+    return (int)this->conections[input] -65;
 }

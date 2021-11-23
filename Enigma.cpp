@@ -32,37 +32,61 @@ void Enigma::Rotate()
 
 }
 
-char Enigma::Encrypt(char letter)
+
+string Enigma::Encrypt(string sentence)
+{
+    int i;
+    string output = "";
+    
+    for(i=0;i<sentence.size();i++)
+    {
+        if(((int)sentence[i] < 65 || (int)sentence[i]>91) && ((int)sentence[i] < 97 || (int)sentence[i]>122))
+        {
+            output+=sentence[i];
+        }
+        else
+        {
+            if(((int)sentence[i] >= 97 && (int)sentence[i] <=122))
+            {
+                output += tolower(this->EncryptChar(toupper(sentence[i])));
+            }
+            else
+            {
+                output += this->EncryptChar(sentence[i]);
+            }
+           
+        }
+    }
+
+    return output;
+}
+
+char Enigma::EncryptChar(char letter)
 {
     this->Rotate();
 
     int caracter = (int)letter - 65;
 
-    // caracter = this->plugboard->ReturnLetter(caracter);
-
-    cout << "Primeira PlugBoard: " << (char)(caracter+65) << endl;
+    caracter = this->plugboard->ReturnLetter(caracter);
 
     caracter = this->rotors[2]->Forward(caracter);
 
-    cout << "Primeira Rotor: " << (char)(caracter+65) << endl;
-
     caracter = this->rotors[1]->Forward(caracter);
 
-    cout << "Segundo Rotor: " << (char)(caracter+65) << endl;
-
     caracter = this->rotors[0]->Forward(caracter);
-
-    cout << "Terceiro Rotor: " << (char)(caracter+65) << endl;
 
     caracter = this->reflector->ReturnLetter(caracter);
 
     caracter = this->rotors[0]->Backward(caracter);
+
     caracter = this->rotors[1]->Backward(caracter);
+
     caracter = this->rotors[2]->Backward(caracter);
 
     caracter = this->plugboard->ReturnLetter(caracter);
 
     caracter = caracter+65;
+
     letter = (char)caracter;
 
     return letter;

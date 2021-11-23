@@ -6,14 +6,15 @@ using namespace std;
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <array>
 
 class Rotor{
     private:
     int type;
     int notch;
     int ringsetting;
-    vector<int> conections;
-    vector<int> reverseconections;
+    array<int,26> conections;
+    array<int,26> reverseconections;
     int currentposition;
 
     public:

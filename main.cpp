@@ -17,34 +17,20 @@ int main()
     vector<int> rotor_ring_settings;
     vector<string> plugconnecetions;
 
-
-    cout << "Digite V para personalizar enigma ou F para configuracao defaut" << endl;
-    getline(cin,user_entry);
-    if(user_entry == "V")
-    {
-        cout << "oi";
-    }
-    else
-    {
-        rotor_types = {1,2,3};
-        reflector_type = 'B';
-        rotor_start_positions = {0,0,25};
-        rotor_ring_settings = {0,0,0};
-        //plugconnecetions = {"AF","TV","KO","BL","RW"};
-        
-    }
+    rotor_types = {2,5,3};
+    reflector_type = 'B';
+    rotor_start_positions = {7,4,19};
+    rotor_ring_settings = {12,2,20};
+    plugconnecetions = {"AF","TV","KO","BL","RW"};
 
     enigma = new Enigma(rotor_types,reflector_type,rotor_start_positions,rotor_ring_settings,plugconnecetions);
 
-    string input = "RJKNGTERBUM";
+    string input = "OZLUDYAKMGMXVFVARPMJIKVWPMBVWMOIDHYPLAYUWGBZFAFAFUQFZQISLEZMYPVBRDDLAGIHIFUJDFADORQOOMIZPYXDCBPWDSSNUSYZTJEWZPWFBWBMIEQXRFASZLOPPZRJKJSPPSTXKPUWYSKNMZZLHJDXJMMMDFODIHUBVCXMNICNYQBNQODFQLOGPZYXRJMTLMRKQAUQJPADHDZPFIKTQBFXAYMVSZPKXIQLOQCVRPKOBZSXIUBAAJBRSNAFDMLLBVSYXISFXQZKQJRIQHOSHVYJXIFUZRMXWJVWHCCYHCXYGRKMKBPWRDBXXRGABQBZRJDVHFPJZUSEBHWAEOGEUQFZEEBDCWNDHIAQDMHKPRVYHQGRDYQIOEOLUBGBSNXWPZCHLDZQBWBEWOCQDBAFGUVHNGCIKXEIZGIZHPJFCTMNNNAUXEVWTWACHOLOLSLTMDRZJZEVKKSSGUUTHVXXODSKTFGRUEIIXVWQYUIPIDBFPGLBYXZTCOQBCAHJYNSGDYLREYBRAKXGKQKWJEKWGAPTHGOMXJDSQKYHMFGOLXBSKVLGNZOAXGVTGXUIVFTGKPJU";
     string output = "";
 
-    int i;
-    for(i=0;i<input.size();i++)
-    {
-        output += enigma->Encrypt(input[i]);
-    }
+    output = enigma->Encrypt(input);
 
-    cout << output << endl;
+    cout << output <<  endl;
+
     return 0;
 }
