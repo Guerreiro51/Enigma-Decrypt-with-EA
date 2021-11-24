@@ -1,0 +1,34 @@
+#ifndef ROTOR_H
+#define ROTOR_H
+#pragma once
+
+#include <array>
+#include <string>
+#include <unordered_map>
+
+class Rotor {
+ private:
+    int rotorNumber;
+    int notch;
+    int ringSetting;
+    int currentPos;
+    std::array<int, 26> connections;
+    std::array<int, 26> reverseConnections;
+
+    static const std::array<std::string, 9> ROTOR_WIRINGS;
+    static const std::array<char, 9> ROTOR_NOTCHES;
+
+ public:
+    Rotor(int rotorNumber, int startingPos, int ringSetting);
+    Rotor() = default;
+
+    void SetupConnections(const std::string& arrangement);
+
+    int Forward(int input);
+    int Backward(int input);
+    void Rotate();
+    bool IsAtNotch();
+
+    friend class Enigma;
+};
+#endif
