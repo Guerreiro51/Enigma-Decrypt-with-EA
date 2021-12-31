@@ -7,11 +7,12 @@
 #include <vector>
 
 class PlugBoard {
- private:
+ public:
     std::unordered_map<int, int> connections;
 
  public:
     PlugBoard(const std::vector<std::string>& plugConnections);
+    PlugBoard() = default;
     void AddConnection(int input, int output);
     int ReturnLetter(int input);
 

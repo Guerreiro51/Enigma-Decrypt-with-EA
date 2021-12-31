@@ -7,11 +7,12 @@
 #include <unordered_map>
 
 class Rotor {
- private:
+ public:
     int rotorNumber;
     int notch;
     int ringSetting;
     int currentPos;
+    int startingPos;
     std::array<int, 26> connections;
     std::array<int, 26> reverseConnections;
 
@@ -28,6 +29,9 @@ class Rotor {
     int Backward(int input);
     void Rotate();
     bool IsAtNotch();
+
+    void Reset();
+    void ChangeRotor(int rotorNumber);
 
     friend class Enigma;
 };

@@ -18,7 +18,7 @@ const std::array<char, 9> Rotor::ROTOR_NOTCHES = {'Q' - 'A',
                                                   0, 0, 0, 0};
 
 Rotor::Rotor(int rotorNumber, int startingPos, int ringSetting)
-    : rotorNumber(rotorNumber), currentPos(startingPos), ringSetting(ringSetting) {
+    : rotorNumber(rotorNumber), currentPos(startingPos), startingPos(startingPos), ringSetting(ringSetting) {
     SetupConnections(ROTOR_WIRINGS[rotorNumber - 1]);
     notch = ROTOR_NOTCHES[rotorNumber - 1];
 }
@@ -50,4 +50,14 @@ void Rotor::SetupConnections(const std::string& arrangement) {
         connections[i] = arrangement[i] - 'A';
         reverseConnections[connections[i]] = i;
     }
+}
+
+void Rotor::Reset() {
+    currentPos = startingPos;
+}
+
+void Rotor::ChangeRotor(int newRotorNumber) {
+    rotorNumber = newRotorNumber;
+    SetupConnections(ROTOR_WIRINGS[newRotorNumber - 1]);
+    notch = ROTOR_NOTCHES[newRotorNumber - 1];
 }

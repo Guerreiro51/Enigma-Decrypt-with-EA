@@ -13,8 +13,9 @@ class Reflector {
 
  public:
     Reflector(char type);
+    Reflector() = default;
     int ReturnLetter(int input);
-
+    void setReflector(char type);
     friend class Enigma;
 };
 #endif

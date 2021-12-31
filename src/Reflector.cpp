@@ -13,3 +13,9 @@ Reflector::Reflector(char type) {
 int Reflector::ReturnLetter(int input) {
     return connections[input] - 'A';
 }
+
+void Reflector::setReflector(char type) {
+    type = toupper(type) - 'A';
+    if (type < 0 || type > 3) type = 3;
+    connections = REFLECTOR_WIRINGS[type];
+}
