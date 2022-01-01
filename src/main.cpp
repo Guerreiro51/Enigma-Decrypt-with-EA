@@ -1,3 +1,4 @@
+#include <fstream>
 #include <iostream>
 #include <random>
 
@@ -14,8 +15,11 @@ int main() {
     std::cout << "Cipher: " << cipher << "\n\n";
 
     Population pop(cipher);
-    for (size_t i = 0; i < 25000; i++)
-        pop.NextGeneration();
+    std::ofstream maxFit(MAXFIT_PATH), avgFit(AVGFIT_PATH), mutState(MUTSTATE_PATH);
+    for (size_t i = 0; i < NUMBER_OF_ITERATIONS; i++)
+        pop.NextGeneration(); 
+    pop.OutputData(maxFit, avgFit, mutState);
+    pop.PlotData(maxFit, avgFit, mutState);
 
     std::string output = pop.Citizens()[0].Gene().Decipher(cipher);
     std::cout << "Decrypted: " << output << "\n\n";

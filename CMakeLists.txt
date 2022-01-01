@@ -20,3 +20,7 @@ target_include_directories (Enigma PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/header/)
 
 # Debug preprocessor definition
 target_compile_definitions(Enigma PUBLIC "$<$<CONFIG:Debug>:_DEBUG>")
+
+# Create necessary directories
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/data)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/plots)

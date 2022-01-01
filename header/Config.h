@@ -5,6 +5,11 @@
 
 constexpr size_t POP_SIZE = 25;
 constexpr size_t TOURNAMENT_SIZE = 2;
+constexpr size_t NUMBER_OF_ITERATIONS = 10000;
+
+constexpr const char* MAXFIT_PATH = "../data/maxFit.txt";
+constexpr const char* AVGFIT_PATH = "../data/avgFit.txt";
+constexpr const char* MUTSTATE_PATH = "../data/mutState.txt";
 
 constexpr size_t NUMBER_OF_ROTORS_AVAILABLE = 5;
 constexpr size_t NUMBER_OF_ROTORS_INSTALLED = 3;

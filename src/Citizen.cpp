@@ -32,7 +32,7 @@ double Citizen::indexOfCoincidence(const std::string& text) {
 
     double indexOfCoincidence = std::accumulate(letters.begin(), letters.end(), 0, [](double a, const double& f) { return a + f * (f - 1.0); });
 
-    double textSize = std::accumulate(letters.begin(), letters.end(), 0.0);
+    double textSize = std::reduce(letters.begin(), letters.end());
     indexOfCoincidence = indexOfCoincidence * NUMBER_OF_LETTERS * 1.0 / (textSize * (textSize - 1.0));
 
     return indexOfCoincidence;

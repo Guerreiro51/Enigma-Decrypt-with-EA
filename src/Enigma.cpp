@@ -121,9 +121,10 @@ char Enigma::EncryptChar(char letter) {
 }
 
 std::string Enigma::show() const {
+    static std::array<std::string, 8> roman = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"};
     std::stringstream s;
-    s << "Rotor Numbers: (" << rotors[0].RotorNumber() + 1 << ", " << rotors[1].RotorNumber() + 1 << ", " << rotors[2].RotorNumber() + 1 << ")\n";
-    s << "Rotor Position: (" << rotors[0].StartingPos() + 1 << ", " << rotors[1].StartingPos() + 1 << ", " << rotors[2].StartingPos() + 1 << ")\n";
+    s << "Rotor Numbers: (" << roman[rotors[0].RotorNumber()] << ", " << roman[rotors[1].RotorNumber()] << ", " << roman[rotors[2].RotorNumber()] << ")\n";
+    s << "Rotor Position: (" << (char)(rotors[0].StartingPos() + 'A') << ", " << (char)(rotors[1].StartingPos() + 'A') << ", " << (char)(rotors[2].StartingPos() + 'A') << ")\n";
     s << "Rotor RingSetting: (" << rotors[0].RingSetting() + 1 << ", " << rotors[1].RingSetting() + 1 << ", " << rotors[2].RingSetting() + 1 << ")\n\n";
 
     s << "Plugboard connections: ";

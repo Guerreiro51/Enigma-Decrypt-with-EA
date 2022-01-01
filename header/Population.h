@@ -11,9 +11,13 @@ class Population {
     std::vector<Citizen> citizens;
 
     const std::string cipher;
-    size_t genNumber;
 
-    int state;
+    size_t genNumber;
+    std::vector<double> maxFit;
+    std::vector<double> avgFit;
+
+    int curState;
+    std::vector<int> state;
 
  public:
     explicit Population(const std::string& cipher);
@@ -26,6 +30,8 @@ class Population {
     void NextGeneration();
 
     void ShowPop() const;
+    void OutputData(std::ofstream& maxFit, std::ofstream& avgFit, std::ofstream& mutState) const;
+    void PlotData(std::ofstream& maxFit, std::ofstream& avgFit, std::ofstream& mutState) const;
 
     const std::vector<Citizen>& Citizens() const;
     const std::string& Cipher() const;
