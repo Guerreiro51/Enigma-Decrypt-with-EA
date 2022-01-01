@@ -9,6 +9,9 @@
 #include <utility>
 
 #include "Plugboard.h"
+#include "matplotlibcpp.h"
+
+namespace plt = matplotlibcpp;
 
 static std::random_device rd;
 static std::mt19937 mt(rd());
@@ -77,7 +80,7 @@ void Population::NextGeneration() {
     Mutate();
     Evaluate();
 
-    if (!(genNumber % 100))
+    if (!(genNumber % NUMBER_OF_ITERATIONS_TO_SHOW))
         ShowPop();
 }
 
@@ -96,22 +99,27 @@ void Population::OutputData(std::ofstream& maxFit, std::ofstream& avgFit, std::o
     }
 }
 
-void Population::PlotData(std::ofstream& maxFit, std::ofstream& avgFit, std::ofstream& mutState) const {
+void Population::DumpData(std::ofstream& maxFit, std::ofstream& avgFit, std::ofstream& mutState) const {
     maxFit.flush();
     avgFit.flush();
     mutState.flush();
 
-    FILE* gnuplot = popen("gnuplot", "w");
-    fprintf(gnuplot, "set term pngcairo\nset output '../plots/fitness.png'\n");
-    fprintf(gnuplot, "set title 'Fitness plot'\nset key outside\nset xlabel 'Generation'\nset ylabel 'Fitness'\n");
-    fprintf(gnuplot, "plot '../data/maxFit.txt' title 'MaxFit' with lines, '../data/avgFit.txt' title 'AvgFit' with lines");
-    fclose(gnuplot);
+    maxFit.close();
+    avgFit.close();
+    mutState.close();
+}
 
-    FILE* gnuplot2 = popen("gnuplot", "w");
-    fprintf(gnuplot2, "set term pngcairo\nset output '../plots/mutState.png'\n");
-    fprintf(gnuplot2, "set title 'Mutation State'\nset key left top\nset xlabel 'Generation'\nset ylabel 'Mutation State'\n");
-    fprintf(gnuplot2, "plot '../data/mutState.txt' title 'Mutation State' with lines");
-    fclose(gnuplot2);
+void Population::PlotData() const {
+    plt::named_plot("MaxFit", maxFit);
+    plt::named_plot("AvgFit", avgFit);
+    plt::title("Fitness");
+    plt::legend();
+    plt::save("../!plots/fitness.png");
+
+    plt::clf();
+    plt::plot(state);
+    plt::title("Mutation State");
+    plt::save("../!plots/mutState.png");
 }
 
 const std::vector<Citizen>& Population::Citizens() const { return citizens; }

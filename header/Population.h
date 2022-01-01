@@ -31,7 +31,8 @@ class Population {
 
     void ShowPop() const;
     void OutputData(std::ofstream& maxFit, std::ofstream& avgFit, std::ofstream& mutState) const;
-    void PlotData(std::ofstream& maxFit, std::ofstream& avgFit, std::ofstream& mutState) const;
+    void DumpData(std::ofstream& maxFit, std::ofstream& avgFit, std::ofstream& mutState) const;
+    void PlotData() const;
 
     const std::vector<Citizen>& Citizens() const;
     const std::string& Cipher() const;
