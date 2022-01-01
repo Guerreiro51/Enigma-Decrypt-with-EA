@@ -1,9 +1,9 @@
 #include "Reflector.h"
 
-const std::array<std::string, NUMBER_OF_REFLECTOR_TYPES+1> Reflector::REFLECTOR_WIRINGS = {"EJMZALYXVBWFCRQUONTSPIKHGD",
-                                                                 "YRUHQSLDPXNGOKMIEBFZCWVJAT",
-                                                                 "FVPJIAOYEDRZXWGCTKUQSBNMHL",
-                                                                 "ZYXWVUTSRQPONMLKJIHGFEDCBA"};
+const std::array<std::string, NUMBER_OF_REFLECTOR_TYPES + 1> Reflector::REFLECTOR_WIRINGS = {"EJMZALYXVBWFCRQUONTSPIKHGD",
+                                                                                             "YRUHQSLDPXNGOKMIEBFZCWVJAT",
+                                                                                             "FVPJIAOYEDRZXWGCTKUQSBNMHL",
+                                                                                             "ZYXWVUTSRQPONMLKJIHGFEDCBA"};
 Reflector::Reflector(char type) {
     type = toupper(type) - 'A';
     if (type < 0 || type > NUMBER_OF_REFLECTOR_TYPES) type = NUMBER_OF_REFLECTOR_TYPES;
@@ -16,7 +16,7 @@ int Reflector::ReturnLetter(int input) {
 
 void Reflector::setReflector(char type) {
     type = toupper(type) - 'A';
-    if (type < 0 || type > NUMBER_OF_REFLECTOR_TYPES) type = NUMBER_OF_REFLECTOR_TYPES;
+    if (type < 0 || type > (char)NUMBER_OF_REFLECTOR_TYPES) type = (char)NUMBER_OF_REFLECTOR_TYPES;
     connections = REFLECTOR_WIRINGS[type];
 }
 

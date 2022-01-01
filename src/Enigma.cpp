@@ -43,7 +43,7 @@ void Enigma::Init() {
     std::array<int, NUMBER_OF_ROTORS_INSTALLED> rotorNumbers = {random1to8[0], random1to8[1], random1to8[2]};
 
     // Chooses random starting position and ring settings
-    auto rng = std::uniform_int_distribution<int>(0, NUMBER_OF_LETTERS-1);
+    auto rng = std::uniform_int_distribution<int>(0, NUMBER_OF_LETTERS - 1);
     std::array<int, NUMBER_OF_ROTORS_INSTALLED> rotorStartingPos = {rng(mt), rng(mt), rng(mt)};
     std::array<int, NUMBER_OF_ROTORS_INSTALLED> rotorRingSettings = {rng(mt), rng(mt), rng(mt)};
 
@@ -57,7 +57,7 @@ void Enigma::Init() {
         plugConnections[i] = std::string() + randomConnections[2 * i] + randomConnections[2 * i + 1];
 
     // Generates random reflector type
-    rng = std::uniform_int_distribution<int>(0, NUMBER_OF_REFLECTOR_TYPES-1);
+    rng = std::uniform_int_distribution<int>(0, NUMBER_OF_REFLECTOR_TYPES - 1);
     char reflectorType = rng(mt) + 'A';
 
     Init(rotorNumbers, rotorStartingPos, rotorRingSettings, plugConnections, reflectorType);

@@ -22,6 +22,7 @@ class Population {
     void Evaluate();
     void Mutate();
     void Elitism();
+    void TournamentSelection(size_t tournamentSize);
     void NextGeneration();
 
     void ShowPop() const;

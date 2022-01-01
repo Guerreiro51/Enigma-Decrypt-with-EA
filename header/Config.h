@@ -4,6 +4,7 @@
 #include <cstddef>
 
 constexpr size_t POP_SIZE = 25;
+constexpr size_t TOURNAMENT_SIZE = 2;
 
 constexpr size_t NUMBER_OF_ROTORS_AVAILABLE = 5;
 constexpr size_t NUMBER_OF_ROTORS_INSTALLED = 3;
@@ -56,16 +57,16 @@ constexpr double MUTATE_REFLECTOR_CHANCE[NUMBER_OF_STATES] = {MUTATE_ROTOR_RINGS
                                                               MUTATE_ROTOR_RINGSETTING_CHANCE[2] + MUTATE_STATE_CHANCE[3][2],
                                                               MUTATE_ROTOR_RINGSETTING_CHANCE[3] + MUTATE_STATE_CHANCE[3][3]};
 
-constexpr double factorial(double n) { return (n > 1) ? n * factorial(n-1.0) : 1.0;}
+constexpr double factorial(double n) { return (n > 1) ? n * factorial(n - 1.0) : 1.0; }
 
 constexpr double SEARCH_SPACE[NUMBER_OF_GENES] = {NUMBER_OF_ROTORS_INSTALLED * factorial(NUMBER_OF_ROTORS_AVAILABLE) / factorial(NUMBER_OF_ROTORS_AVAILABLE - NUMBER_OF_ROTORS_INSTALLED),
-                                                  NUMBER_OF_LETTERS * NUMBER_OF_LETTERS * NUMBER_OF_LETTERS,
-                                                  NUMBER_OF_LETTERS * NUMBER_OF_LETTERS * NUMBER_OF_LETTERS,
+                                                  NUMBER_OF_LETTERS* NUMBER_OF_LETTERS* NUMBER_OF_LETTERS,
+                                                  NUMBER_OF_LETTERS* NUMBER_OF_LETTERS* NUMBER_OF_LETTERS,
                                                   NUMBER_OF_REFLECTOR_TYPES};
 constexpr double SEARCH_SPACE_TOTAL = SEARCH_SPACE[0] * SEARCH_SPACE[1] * SEARCH_SPACE[2] * SEARCH_SPACE[3];
 
-static const size_t STATE_SIZE[NUMBER_OF_STATES] = {static_cast<size_t>(pow(SEARCH_SPACE[0], MUTATE_STATE_CHANCE[0][0]) * pow(SEARCH_SPACE[1], MUTATE_STATE_CHANCE[0][1]) * pow(SEARCH_SPACE[2], MUTATE_STATE_CHANCE[0][2]) * pow(SEARCH_SPACE[3], MUTATE_STATE_CHANCE[0][3]))/3,
-                                                    static_cast<size_t>(pow(SEARCH_SPACE[0], MUTATE_STATE_CHANCE[1][0]) * pow(SEARCH_SPACE[1], MUTATE_STATE_CHANCE[1][1]) * pow(SEARCH_SPACE[2], MUTATE_STATE_CHANCE[1][2]) * pow(SEARCH_SPACE[3], MUTATE_STATE_CHANCE[1][3]))/3,
-                                                    static_cast<size_t>(pow(SEARCH_SPACE[0], MUTATE_STATE_CHANCE[2][0]) * pow(SEARCH_SPACE[1], MUTATE_STATE_CHANCE[2][1]) * pow(SEARCH_SPACE[2], MUTATE_STATE_CHANCE[2][2]) * pow(SEARCH_SPACE[3], MUTATE_STATE_CHANCE[2][3]))/3,
-                                                    static_cast<size_t>(pow(SEARCH_SPACE[0], MUTATE_STATE_CHANCE[3][0]) * pow(SEARCH_SPACE[1], MUTATE_STATE_CHANCE[3][1]) * pow(SEARCH_SPACE[2], MUTATE_STATE_CHANCE[3][2]) * pow(SEARCH_SPACE[3], MUTATE_STATE_CHANCE[3][3]))/3};
+static const size_t STATE_SIZE[NUMBER_OF_STATES] = {static_cast<size_t>(pow(SEARCH_SPACE[0], MUTATE_STATE_CHANCE[0][0]) * pow(SEARCH_SPACE[1], MUTATE_STATE_CHANCE[0][1]) * pow(SEARCH_SPACE[2], MUTATE_STATE_CHANCE[0][2]) * pow(SEARCH_SPACE[3], MUTATE_STATE_CHANCE[0][3])) / 3,
+                                                    static_cast<size_t>(pow(SEARCH_SPACE[0], MUTATE_STATE_CHANCE[1][0]) * pow(SEARCH_SPACE[1], MUTATE_STATE_CHANCE[1][1]) * pow(SEARCH_SPACE[2], MUTATE_STATE_CHANCE[1][2]) * pow(SEARCH_SPACE[3], MUTATE_STATE_CHANCE[1][3])) / 3,
+                                                    static_cast<size_t>(pow(SEARCH_SPACE[0], MUTATE_STATE_CHANCE[2][0]) * pow(SEARCH_SPACE[1], MUTATE_STATE_CHANCE[2][1]) * pow(SEARCH_SPACE[2], MUTATE_STATE_CHANCE[2][2]) * pow(SEARCH_SPACE[3], MUTATE_STATE_CHANCE[2][3])) / 3,
+                                                    static_cast<size_t>(pow(SEARCH_SPACE[0], MUTATE_STATE_CHANCE[3][0]) * pow(SEARCH_SPACE[1], MUTATE_STATE_CHANCE[3][1]) * pow(SEARCH_SPACE[2], MUTATE_STATE_CHANCE[3][2]) * pow(SEARCH_SPACE[3], MUTATE_STATE_CHANCE[3][3])) / 3};
 #endif

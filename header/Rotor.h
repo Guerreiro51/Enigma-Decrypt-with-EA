@@ -4,6 +4,7 @@
 #include <array>
 #include <string>
 #include <unordered_map>
+
 #include "Config.h"
 
 class Rotor {

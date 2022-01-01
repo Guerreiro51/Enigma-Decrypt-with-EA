@@ -1,12 +1,16 @@
 #include "Population.h"
 
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
 
 #include "Plugboard.h"
+
+static std::random_device rd;
+static std::mt19937 mt(rd());
 
 Population::Population(const std::string& cipher) : citizens(POP_SIZE, Citizen(cipher)), cipher(cipher), genNumber(0), state(0) {
     Init();
@@ -33,16 +37,15 @@ void Population::Evaluate() {
 
     static double prevMaxFit = citizens[0].Fitness();
     static size_t stagnantCount = 0;
-    if(abs(prevMaxFit - citizens[0].Fitness()) < 1e-5) {
+    if (std::abs(prevMaxFit - citizens[0].Fitness()) < 1e-5) {
         stagnantCount++;
-        if(stagnantCount == STATE_SIZE[state]) {
+        if (stagnantCount == STATE_SIZE[state]) {
             state = (state + 1) % NUMBER_OF_STATES;
             stagnantCount = 0UL;
         }
-    }
-    else
+    } else
         stagnantCount = 0UL;
-    
+
     prevMaxFit = citizens[0].Fitness();
 }
 
@@ -52,6 +55,21 @@ void Population::Elitism() {
         citizens[i].Crossover(citizens[0].Gene());
 }
 
+void Population::TournamentSelection(size_t tournamentSize) {
+    std::vector<Citizen> pastGenPop = citizens;
+    tournamentSize = std::min(tournamentSize, POP_SIZE);
+
+    for (size_t i = 1; i < POP_SIZE; i++) {
+        std::shuffle(pastGenPop.begin(), pastGenPop.end(), mt);
+        auto firstTourneyWinner = std::min_element(pastGenPop.begin(), pastGenPop.begin() + tournamentSize)->Gene();
+
+        std::shuffle(pastGenPop.begin(), pastGenPop.end(), mt);
+        auto secondTourneyWinner = std::min_element(pastGenPop.begin(), pastGenPop.begin() + tournamentSize)->Gene();
+
+        citizens[i].Gene() = Citizen::Crossover(firstTourneyWinner, secondTourneyWinner);
+    }
+}
+
 void Population::Mutate() {
     for (size_t i = 1; i < citizens.size(); i++)
         citizens[i].Mutate(state);
@@ -59,7 +77,8 @@ void Population::Mutate() {
 
 void Population::NextGeneration() {
     genNumber++;
-    Elitism();
+    // Elitism();
+    TournamentSelection(TOURNAMENT_SIZE);
     Mutate();
     Evaluate();
 

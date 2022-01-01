@@ -18,6 +18,7 @@ class Citizen {
     static double indexOfCoincidence(const std::string&);
 
     void Evaluate(const std::string&);
+    static Enigma Crossover(const Enigma& mom, const Enigma& dad);
     void Crossover(const Enigma& other);
     void Mutate(int state);
 
