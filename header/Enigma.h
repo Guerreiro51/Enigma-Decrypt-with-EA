@@ -11,7 +11,7 @@
 
 class Enigma {
  private:
-    std::array<Rotor, 3> rotors;
+    std::array<Rotor, NUMBER_OF_ROTORS_INSTALLED> rotors;
     Reflector reflector;
     Plugboard plugboard;
 
@@ -19,12 +19,12 @@ class Enigma {
     std::string show() const;
 
  public:
-    Enigma(const std::array<int, 3>& rotorNumbers, const std::array<int, 3>& rotorStartPositions, const std::array<int, 3>& rotorRingSettings, const std::vector<std::string>& plugConnections, char reflectorType);
-    Enigma(const std::array<Rotor, 3>& rotors, const Reflector& reflector, const Plugboard& plugboard);
+    Enigma(const std::array<int, NUMBER_OF_ROTORS_INSTALLED>& rotorNumbers, const std::array<int, NUMBER_OF_ROTORS_INSTALLED>& rotorStartingPos, const std::array<int, NUMBER_OF_ROTORS_INSTALLED>& rotorRingSettings, const std::vector<std::string>& plugConnections, char reflectorType);
+    Enigma(const std::array<Rotor, NUMBER_OF_ROTORS_INSTALLED>& rotors, const Reflector& reflector, const Plugboard& plugboard);
     Enigma();
 
-    void Init(const std::array<int, 3>& rotorNumbers, const std::array<int, 3>& rotorStartPositions, const std::array<int, 3>& rotorRingSettings, const std::vector<std::string>& plugConnections, char reflectorType);
-    void Init(const std::array<Rotor, 3>& rotors, const Reflector& reflector, const Plugboard& plugboard);
+    void Init(const std::array<int, NUMBER_OF_ROTORS_INSTALLED>& rotorNumbers, const std::array<int, NUMBER_OF_ROTORS_INSTALLED>& rotorStartingPos, const std::array<int, NUMBER_OF_ROTORS_INSTALLED>& rotorRingSettings, const std::vector<std::string>& plugConnections, char reflectorType);
+    void Init(const std::array<Rotor, NUMBER_OF_ROTORS_INSTALLED>& rotors, const Reflector& reflector, const Plugboard& plugboard);
     void Init();
 
     char EncryptChar(char letter);
@@ -33,11 +33,11 @@ class Enigma {
     void Rotate();
     void Reset();
 
-    const std::array<Rotor, 3>& Rotors() const;
+    const std::array<Rotor, NUMBER_OF_ROTORS_INSTALLED>& Rotors() const;
     const Reflector& getReflector() const;
     const Plugboard& getPlugboard() const;
 
-    std::array<Rotor, 3>& Rotors();
+    std::array<Rotor, NUMBER_OF_ROTORS_INSTALLED>& Rotors();
     Reflector& getReflector();
     Plugboard& getPlugboard();
 

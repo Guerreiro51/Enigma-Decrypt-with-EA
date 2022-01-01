@@ -5,8 +5,6 @@
 
 #include "Citizen.h"
 
-constexpr size_t POP_SIZE = 25;
-
 class Population {
  private:
     // This vector must be ordered by fitness
@@ -14,6 +12,8 @@ class Population {
 
     const std::string cipher;
     size_t genNumber;
+
+    int state;
 
  public:
     explicit Population(const std::string& cipher);

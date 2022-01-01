@@ -10,7 +10,7 @@ Plugboard::Plugboard(const std::vector<std::string>& plugConnections) {
 void Plugboard::AddConnection(int input, int output) {
     // in case one of the letters is already connected, do nothing
     if (connections.find(input) != connections.end() || connections.find(output) != connections.end()) {
-        std::cout << "Connection " << 'A' + 65 << 'A' + output << " not established\n";
+        std::cout << "Connection " << 'A' + input << 'A' + output << " not established\n";
         std::cout << "At least one of the keys is already connected\n";
         return;
     }

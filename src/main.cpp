@@ -14,7 +14,7 @@ int main() {
     std::cout << "Cipher: " << cipher << "\n\n";
 
     Population pop(cipher);
-    for (size_t i = 0; i < 200000; i++)
+    for (size_t i = 0; i < 25000; i++)
         pop.NextGeneration();
 
     std::string output = pop.Citizens()[0].Gene().Decipher(cipher);

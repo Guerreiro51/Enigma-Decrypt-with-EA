@@ -19,34 +19,34 @@ const std::array<char, 9> Rotor::ROTOR_NOTCHES = {'Q' - 'A',
 
 Rotor::Rotor(int rotorNumber, int startingPos, int ringSetting)
     : rotorNumber(rotorNumber), ringSetting(ringSetting), currentPos(startingPos), startingPos(startingPos) {
-    SetupConnections(ROTOR_WIRINGS[rotorNumber - 1]);
-    notch = ROTOR_NOTCHES[rotorNumber - 1];
+    SetupConnections(ROTOR_WIRINGS[rotorNumber]);
+    notch = ROTOR_NOTCHES[rotorNumber];
 }
 
 int Rotor::Forward(int input) {
     int shift = currentPos - ringSetting;
 
-    return (connections[(input + shift + 26) % 26] - shift + 26) % 26;
+    return (connections[(input + shift + NUMBER_OF_LETTERS) % NUMBER_OF_LETTERS] - shift + NUMBER_OF_LETTERS) % NUMBER_OF_LETTERS;
 }
 
 int Rotor::Backward(int input) {
     int shift = currentPos - ringSetting;
 
-    return (reverseConnections[(input + shift + 26) % 26] - shift + 26) % 26;
+    return (reverseConnections[(input + shift + NUMBER_OF_LETTERS) % NUMBER_OF_LETTERS] - shift + NUMBER_OF_LETTERS) % NUMBER_OF_LETTERS;
 }
 
 bool Rotor::IsAtNotch() {
-    if (rotorNumber > 5)
+    if (rotorNumber >= 5)
         return currentPos == 25 || currentPos == 12;
     return currentPos == notch;
 }
 
 void Rotor::Rotate() {
-    currentPos = (currentPos + 1) % 26;
+    currentPos = (currentPos + 1) % NUMBER_OF_LETTERS;
 }
 
 void Rotor::SetupConnections(const std::string& arrangement) {
-    for (size_t i = 0; i < 26; i++) {
+    for (size_t i = 0; i < NUMBER_OF_LETTERS; i++) {
         connections[i] = arrangement[i] - 'A';
         reverseConnections[connections[i]] = i;
     }
@@ -58,8 +58,8 @@ void Rotor::Reset() {
 
 void Rotor::ChangeRotor(int newRotorNumber) {
     rotorNumber = newRotorNumber;
-    SetupConnections(ROTOR_WIRINGS[newRotorNumber - 1]);
-    notch = ROTOR_NOTCHES[newRotorNumber - 1];
+    SetupConnections(ROTOR_WIRINGS[newRotorNumber]);
+    notch = ROTOR_NOTCHES[newRotorNumber];
 }
 
 void Rotor::ChangeStartingPos(int newStartingPos) {

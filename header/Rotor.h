@@ -4,6 +4,7 @@
 #include <array>
 #include <string>
 #include <unordered_map>
+#include "Config.h"
 
 class Rotor {
  private:
@@ -12,8 +13,8 @@ class Rotor {
     int ringSetting;
     int currentPos;
     int startingPos;
-    std::array<int, 26> connections;
-    std::array<int, 26> reverseConnections;
+    std::array<int, NUMBER_OF_LETTERS> connections;
+    std::array<int, NUMBER_OF_LETTERS> reverseConnections;
 
     static const std::array<std::string, 9> ROTOR_WIRINGS;
     static const std::array<char, 9> ROTOR_NOTCHES;
