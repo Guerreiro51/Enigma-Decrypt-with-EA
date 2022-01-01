@@ -14,11 +14,10 @@ int main() {
     std::cout << "Cipher: " << cipher << "\n\n";
 
     Population pop(cipher);
-    for (size_t i = 0; i < 10000; i++)
-        pop.nextGeneration();
+    for (size_t i = 0; i < 200000; i++)
+        pop.NextGeneration();
 
-    std::string output = pop.citizens[0].gene.Decipher(cipher);
-    pop.citizens[0].gene.Reset();
+    std::string output = pop.Citizens()[0].Gene().Decipher(cipher);
     std::cout << "Decrypted: " << output << "\n\n";
-    std::cout << pop.citizens[0].gene << '\n';
+    std::cout << pop.Citizens()[0].Gene() << '\n';
 }

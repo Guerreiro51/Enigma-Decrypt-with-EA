@@ -1,13 +1,12 @@
 #ifndef ROTOR_H
 #define ROTOR_H
-#pragma once
 
 #include <array>
 #include <string>
 #include <unordered_map>
 
 class Rotor {
- public:
+ private:
     int rotorNumber;
     int notch;
     int ringSetting;
@@ -31,8 +30,12 @@ class Rotor {
     bool IsAtNotch();
 
     void Reset();
-    void ChangeRotor(int rotorNumber);
+    void ChangeRotor(int newRotorNumber);
+    void ChangeStartingPos(int newStartingPos);
+    void ChangeRingSetting(int newRingSetting);
 
-    friend class Enigma;
+    const int& RotorNumber() const;
+    const int& StartingPos() const;
+    const int& RingSetting() const;
 };
 #endif

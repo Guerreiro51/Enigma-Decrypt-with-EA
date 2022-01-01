@@ -6,20 +6,33 @@
 
 Enigma::Enigma(const std::array<int, 3>& rotorNumbers, const std::array<int, 3>& rotorStartPositions, const std::array<int, 3>& rotorRingSettings,
                const std::vector<std::string>& plugConnections, char reflectorType)
-    : plugboard(plugConnections), reflector(reflectorType) {
+    : reflector(reflectorType), plugboard(plugConnections) {
     for (size_t i = 0; i < rotors.size(); i++)
         rotors[i] = Rotor(rotorNumbers[i], rotorStartPositions[i], rotorRingSettings[i]);
 }
-Enigma::Enigma(std::array<Rotor, 3>& rotors, Reflector& reflector, PlugBoard& plugboard) : rotors(rotors), reflector(reflector), plugboard(plugboard) {}
+
+Enigma::Enigma(const std::array<Rotor, 3>& rotors, const Reflector& reflector, const Plugboard& plugboard)
+    : rotors(rotors), reflector(reflector), plugboard(plugboard) {}
+
+Enigma::Enigma() {
+    Init();
+}
 
 void Enigma::Init(const std::array<int, 3>& rotorNumbers, const std::array<int, 3>& rotorStartPositions, const std::array<int, 3>& rotorRingSettings, const std::vector<std::string>& plugConnections, char reflectorType) {
     for (size_t i = 0; i < rotors.size(); i++)
         rotors[i] = Rotor(rotorNumbers[i], rotorStartPositions[i], rotorRingSettings[i]);
-    plugboard = plugConnections;
-    reflector = reflectorType;
+    plugboard = Plugboard(plugConnections);
+    reflector = Reflector(reflectorType);
 }
 
-Enigma::Enigma() {
+void Enigma::Init(const std::array<Rotor, 3>& rotors, const Reflector& reflector, const Plugboard& plugboard) {
+    for (size_t i = 0; i < rotors.size(); i++)
+        this->rotors[i] = rotors[i];
+    this->plugboard = plugboard;
+    this->reflector = reflector;
+}
+
+void Enigma::Init() {
     static std::random_device rd;
     static std::mt19937 mt(rd());
 
@@ -31,8 +44,8 @@ Enigma::Enigma() {
 
     // Chooses random starting position and ring settings
     auto rng = std::uniform_int_distribution<int>(0, 25);
-    std::array<int, 3> rotorStartPositions = {0, 0, 0};
-    std::array<int, 3> rotorRingSettings = {0, 0, 0};
+    std::array<int, 3> rotorStartPositions = {rng(mt), rng(mt), rng(mt)};
+    std::array<int, 3> rotorRingSettings = {rng(mt), rng(mt), rng(mt)};
 
     // Generates random plugConnections
     rng = std::uniform_int_distribution<int>(0, 10);  // uniform int distribution to generate the number of connections
@@ -63,7 +76,6 @@ void Enigma::Rotate() {
 
 std::string Enigma::Encipher(const std::string& PlainText) {
     std::string output("");
-
     for (const auto& c : PlainText) {
         if (!isalpha(c)) {
             output += c;
@@ -73,6 +85,7 @@ std::string Enigma::Encipher(const std::string& PlainText) {
             output += EncryptChar(c);
         }
     }
+    Reset();
     return output;
 }
 
@@ -109,16 +122,16 @@ char Enigma::EncryptChar(char letter) {
 
 std::string Enigma::show() const {
     std::stringstream s;
-    s << "Rotor Numbers: (" << rotors[0].rotorNumber + 1 << ", " << rotors[1].rotorNumber + 1 << ", " << rotors[2].rotorNumber + 1 << ")\n";
-    s << "Rotor Position: (" << rotors[0].currentPos + 1 << ", " << rotors[1].currentPos + 1 << ", " << rotors[2].currentPos + 1 << ")\n";
-    s << "Rotor RingSetting: (" << rotors[0].ringSetting + 1 << ", " << rotors[1].ringSetting + 1 << ", " << rotors[2].ringSetting + 1 << ")\n\n";
+    s << "Rotor Numbers: (" << rotors[0].RotorNumber() + 1 << ", " << rotors[1].RotorNumber() + 1 << ", " << rotors[2].RotorNumber() + 1 << ")\n";
+    s << "Rotor Position: (" << rotors[0].StartingPos() + 1 << ", " << rotors[1].StartingPos() + 1 << ", " << rotors[2].StartingPos() + 1 << ")\n";
+    s << "Rotor RingSetting: (" << rotors[0].RingSetting() + 1 << ", " << rotors[1].RingSetting() + 1 << ", " << rotors[2].RingSetting() + 1 << ")\n\n";
 
     s << "Plugboard connections: ";
-    for (const auto& plugConnection : plugboard.connections)
+    for (const auto& plugConnection : plugboard.Connections())
         s << (char)(plugConnection.first + 'A') << (char)(plugConnection.second + 'A') << ' ';
     s << "\n\n";
 
-    s << "Reflector: " << reflector.connections << '\n';
+    s << "Reflector: " << reflector.Connections() << '\n';
 
     return s.str();
 }
@@ -127,6 +140,14 @@ void Enigma::Reset() {
     for (Rotor& rotor : rotors)
         rotor.Reset();
 }
+
+std::array<Rotor, 3>& Enigma::Rotors() { return rotors; }
+Reflector& Enigma::getReflector() { return reflector; }
+Plugboard& Enigma::getPlugboard() { return plugboard; }
+
+const std::array<Rotor, 3>& Enigma::Rotors() const { return rotors; }
+const Reflector& Enigma::getReflector() const { return reflector; }
+const Plugboard& Enigma::getPlugboard() const { return plugboard; }
 
 std::ostream& operator<<(std::ostream& os, const Enigma& e) {
     os << e.show();

@@ -19,3 +19,5 @@ void Reflector::setReflector(char type) {
     if (type < 0 || type > 3) type = 3;
     connections = REFLECTOR_WIRINGS[type];
 }
+
+const std::string& Reflector::Connections() const { return connections; }

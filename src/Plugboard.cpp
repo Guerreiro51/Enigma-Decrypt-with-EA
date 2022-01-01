@@ -1,13 +1,13 @@
-#include "PlugBoard.h"
+#include "Plugboard.h"
 
 #include <iostream>
 
-PlugBoard::PlugBoard(const std::vector<std::string>& plugConnections) {
+Plugboard::Plugboard(const std::vector<std::string>& plugConnections) {
     for (auto const& connection : plugConnections)
         AddConnection(connection[0] - 'A', connection[1] - 'A');
 }
 
-void PlugBoard::AddConnection(int input, int output) {
+void Plugboard::AddConnection(int input, int output) {
     // in case one of the letters is already connected, do nothing
     if (connections.find(input) != connections.end() || connections.find(output) != connections.end()) {
         std::cout << "Connection " << 'A' + 65 << 'A' + output << " not established\n";
@@ -19,9 +19,11 @@ void PlugBoard::AddConnection(int input, int output) {
     connections[output] = input;
 }
 
-int PlugBoard::ReturnLetter(int input) {
+int Plugboard::ReturnLetter(int input) {
     if (connections.find(input) != connections.end())
         return connections[input];
 
     return input;
 }
+
+const std::unordered_map<int, int> Plugboard::Connections() const { return connections; }

@@ -1,21 +1,21 @@
 #ifndef PLUGBOARD_H
 #define PLUGBOARD_H
-#pragma once
 
 #include <string>
 #include <unordered_map>
 #include <vector>
 
-class PlugBoard {
- public:
+class Plugboard {
+ private:
     std::unordered_map<int, int> connections;
 
  public:
-    PlugBoard(const std::vector<std::string>& plugConnections);
-    PlugBoard() = default;
+    explicit Plugboard(const std::vector<std::string>& plugConnections);
+    Plugboard() = default;
+
     void AddConnection(int input, int output);
     int ReturnLetter(int input);
 
-    friend class Enigma;
+    const std::unordered_map<int, int> Connections() const;
 };
 #endif
