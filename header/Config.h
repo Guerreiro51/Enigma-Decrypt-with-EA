@@ -3,10 +3,13 @@
 #include <cmath>
 #include <cstddef>
 
-constexpr size_t POP_SIZE = 25;
-constexpr size_t TOURNAMENT_SIZE = 2;
-constexpr size_t NUMBER_OF_ITERATIONS = 100000;
+#define __ASYNC 1
+
+constexpr size_t POP_SIZE = 100;
+constexpr size_t TOURNAMENT_SIZE = 3;
+constexpr size_t NUMBER_OF_ITERATIONS = 10000;
 constexpr size_t NUMBER_OF_ITERATIONS_TO_SHOW = 500;
+constexpr size_t NUMBER_OF_CITIZENS_SHOWN = 5;
 constexpr bool OUTPUT_DATA_FILES = false;
 
 constexpr const char* MAXFIT_PATH = "../!data/maxFit.txt";

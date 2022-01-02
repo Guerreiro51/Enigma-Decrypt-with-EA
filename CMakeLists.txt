@@ -26,13 +26,18 @@ file(GLOB_RECURSE sources src/*.cpp header/*.h)
 add_executable (Enigma ${sources})
 
 # static linking
-target_link_libraries(Enigma PRIVATE matplotlib_cpp -lm)
+target_link_libraries(Enigma PRIVATE matplotlib_cpp -lm -pthread)
 
 # library include
 target_include_directories (Enigma PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/header/)
 
 # Debug preprocessor definition
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3 -march=native")
+set (CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -Wall -O3 -march=native")
 target_compile_definitions(Enigma PUBLIC "$<$<CONFIG:Debug>:_DEBUG>")
+set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address -Wall -O3 -march=native")
+set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address -Wall -O3 -march=native")
+
 
 # Create necessary directories
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/!data)

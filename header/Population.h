@@ -1,6 +1,7 @@
 #ifndef POPULATION_H
 #define POPULATION_H
 
+#include <future>
 #include <random>
 
 #include "Citizen.h"
@@ -26,7 +27,7 @@ class Population {
     void Evaluate();
     void Mutate();
     void Elitism();
-    void TournamentSelection(size_t tournamentSize);
+    void TournamentSelection();
     void NextGeneration();
 
     void ShowPop() const;
