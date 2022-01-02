@@ -26,7 +26,7 @@ file(GLOB_RECURSE sources src/*.cpp header/*.h)
 add_executable (Enigma ${sources})
 
 # static linking
-target_link_libraries(Enigma PRIVATE matplotlib_cpp -lm -pthread)
+target_link_libraries(Enigma PRIVATE matplotlib_cpp -lm)
 
 # library include
 target_include_directories (Enigma PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/header/)

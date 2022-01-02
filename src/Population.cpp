@@ -25,16 +25,8 @@ void Population::Init() {
 }
 
 void Population::Evaluate() {
-#if __ASYNC
-    std::vector<std::future<void>> evaluateFutures;
-    for (size_t i = 0; i < POP_SIZE; i++)
-        evaluateFutures.push_back(std::async(std::launch::async, &Citizen::Evaluate, &citizens[i], cipher));
-    for (size_t i = 0; i < POP_SIZE; i++)
-        evaluateFutures[i].wait();
-#else
     for (Citizen& citizen : citizens)
         citizen.Evaluate(cipher);
-#endif
     sort(citizens.begin(), citizens.end());
     maxFit[genNumber - 1] = citizens[0].Fitness();
     avgFit[genNumber - 1] = std::accumulate(citizens.begin(), citizens.end(), 0.0, [](double a, const Citizen& c) { return a + c.Fitness(); }) / (double)POP_SIZE;
@@ -56,41 +48,11 @@ void Population::Evaluate() {
 
 // fit crossover with everyone followed by a mutation
 void Population::Elitism() {
-#if __ASYNC
-    std::vector<std::future<void>> elitismFutures;
-    for (size_t i = 1; i < POP_SIZE; i++)
-        elitismFutures.push_back(std::async(std::launch::async, static_cast<void (Citizen::*)(const Enigma&)>(&Citizen::Crossover), &citizens[i], citizens[0].Gene()));
-    for (size_t i = 1; i < POP_SIZE; i++)
-        elitismFutures[i - 1].wait();
-#else
     for (size_t i = 1; i < citizens.size(); i++)
         citizens[i].Crossover(citizens[0].Gene());
-#endif
 }
 
 void Population::TournamentSelection() {
-#if __ASYNC
-    std::vector<std::future<Enigma>> tournamentFutures;
-    std::vector<Citizen> tempPop(citizens);
-
-    auto tournament = [citizens = citizens](size_t i) {
-        std::vector<Citizen> pastGenPop(citizens);
-
-        std::shuffle(pastGenPop.begin(), pastGenPop.end(), mt);
-        auto firstTourneyWinner = std::min_element(pastGenPop.begin(), pastGenPop.begin() + TOURNAMENT_SIZE)->Gene();
-
-        std::shuffle(pastGenPop.begin(), pastGenPop.end(), mt);
-        auto secondTourneyWinner = std::min_element(pastGenPop.begin(), pastGenPop.begin() + TOURNAMENT_SIZE)->Gene();
-
-        return Citizen::Crossover(firstTourneyWinner, secondTourneyWinner);
-    };
-
-    for (size_t i = 1; i < POP_SIZE; i++)
-        tournamentFutures.push_back(std::async(std::launch::async, tournament, i));
-
-    for (size_t i = 1; i < POP_SIZE; i++)
-        citizens[i].Gene() = tournamentFutures[i - 1].get();
-#else
     std::vector<Citizen> pastGenPop = citizens;
 
     for (size_t i = 1; i < POP_SIZE; i++) {
@@ -102,20 +64,11 @@ void Population::TournamentSelection() {
 
         citizens[i].Gene() = Citizen::Crossover(firstTourneyWinner, secondTourneyWinner);
     }
-#endif
 }
 
 void Population::Mutate() {
-#if __ASYNC
-    std::vector<std::future<void>> mutateFutures;
-    for (size_t i = 1; i < POP_SIZE; i++)
-        mutateFutures.push_back(std::async(std::launch::async, &Citizen::Mutate, &citizens[i], curState));
-    for (size_t i = 1; i < citizens.size(); i++)
-        mutateFutures[i - 1].wait();
-#else
     for (size_t i = 1; i < citizens.size(); i++)
         citizens[i].Mutate(curState);
-#endif
 }
 
 void Population::NextGeneration() {
