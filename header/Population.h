@@ -14,8 +14,8 @@ class Population {
     const std::string cipher;
 
     size_t genNumber;
-    std::vector<double> maxFit;
-    std::vector<double> avgFit;
+    std::vector<float> maxFit;
+    std::vector<float> avgFit;
 
     int curState;
     std::vector<int> state;
@@ -28,12 +28,16 @@ class Population {
     void Mutate();
     void Elitism();
     void TournamentSelection();
-    void NextGeneration();
+    bool NextGeneration();
+
+    void RandomPredation();
+    void Genocide();
 
     void ShowPop() const;
     void OutputData(std::ofstream& maxFit, std::ofstream& avgFit, std::ofstream& mutState) const;
     void DumpData(std::ofstream& maxFit, std::ofstream& avgFit, std::ofstream& mutState) const;
-    void PlotData() const;
+    void PlotDataMatplotlib() const;
+    void PlotDataGnuplot() const;
 
     const std::vector<Citizen>& Citizens() const;
     const std::string& Cipher() const;

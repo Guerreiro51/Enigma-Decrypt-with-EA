@@ -8,21 +8,21 @@
 class Citizen {
  private:
     Enigma gene;
-    double fitness;
+    float fitness;
 
  public:
     Citizen(const std::string& cipher, const std::array<int, NUMBER_OF_ROTORS_INSTALLED>& rotorNumbers, const std::array<int, NUMBER_OF_ROTORS_INSTALLED>& rotorStartingPos, const std::array<int, NUMBER_OF_ROTORS_INSTALLED>& rotorRingSettings, const std::vector<std::string>& plugConnections, char reflectorType);
     explicit Citizen(const std::string& cipher);
     void Init(const std::string& cipher);
 
-    static double indexOfCoincidence(const std::string&);
+    static float indexOfCoincidence(const std::string&);
 
     void Evaluate(const std::string&);
     static Enigma Crossover(const Enigma& mom, const Enigma& dad);
     void Crossover(const Enigma& other);
     void Mutate(int state);
 
-    const double& Fitness() const;
+    const float& Fitness() const;
     const Enigma& Gene() const;
     Enigma& Gene();
 

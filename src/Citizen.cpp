@@ -23,17 +23,17 @@ void Citizen::Init(const std::string& cipher) {
     Evaluate(cipher);
 }
 
-double Citizen::indexOfCoincidence(const std::string& text) {
-    std::array<double, NUMBER_OF_LETTERS> letters{};
+float Citizen::indexOfCoincidence(const std::string& text) {
+    std::array<float, NUMBER_OF_LETTERS> letters{};
     for (const char& letter : text) {
         if (isalpha(letter))
             letters[toupper(letter) - 'A']++;
     }
 
-    double indexOfCoincidence = std::accumulate(letters.begin(), letters.end(), 0, [](double a, const double& f) { return a + f * (f - 1.0); });
+    float indexOfCoincidence = std::accumulate(letters.begin(), letters.end(), 0, [](float a, const float& f) { return a + f * (f - 1.0); });
 
-    double textSize = std::reduce(letters.begin(), letters.end());
-    indexOfCoincidence = indexOfCoincidence * NUMBER_OF_LETTERS * 1.0 / (textSize * (textSize - 1.0));
+    float textSize = std::reduce(letters.begin(), letters.end());
+    indexOfCoincidence = indexOfCoincidence * NUMBER_OF_LETTERS * 1.0f / (textSize * (textSize - 1.0f));
 
     return indexOfCoincidence;
 }
@@ -116,17 +116,13 @@ void Citizen::Crossover(const Enigma& other) {
 }
 
 void Citizen::Mutate(int state) {
-    static auto rngChance = std::uniform_real_distribution<double>(0.0, 1.0);
-    double rng = rngChance(mt);
+    static auto rngChance = std::uniform_real_distribution<float>(0.0f, 1.0f);
+    float rng = rngChance(mt);
 
-    // static auto rngChanceRotor = std::bernoulli_distribution(MUTATE_ROTOR_CHANCE[state]);
     static auto rngValueRotor = std::uniform_int_distribution<>(0, NUMBER_OF_ROTORS_AVAILABLE - 1);
-    // static auto rngChanceRotorStartingPos = std::bernoulli_distribution(MUTATE_ROTOR_STARTINGPOS_CHANCE[state]);
     static auto rngValueRotorStartingPos = std::uniform_int_distribution<>(0, NUMBER_OF_LETTERS - 1);
-    // static auto rngChanceRotorRingSetting = std::bernoulli_distribution(MUTATE_ROTOR_RINGSETTING_CHANCE[state]);
     static auto rngValueRotorRingSetting = std::uniform_int_distribution<>(0, NUMBER_OF_LETTERS - 1);
 
-    // static auto rngChanceReflector = std::bernoulli_distribution(MUTATE_REFLECTOR_CHANCE[state]);
     static auto rngValueReflector = std::uniform_int_distribution<>(0, NUMBER_OF_REFLECTOR_TYPES - 1);
 
     // Changes one of the rotors to a random one
@@ -165,6 +161,6 @@ void Citizen::Mutate(int state) {
         gene.getReflector().setReflector(rngValueReflector(mt) + 'A');
 }
 
-const double& Citizen::Fitness() const { return fitness; }
+const float& Citizen::Fitness() const { return fitness; }
 const Enigma& Citizen::Gene() const { return gene; }
 Enigma& Citizen::Gene() { return gene; }

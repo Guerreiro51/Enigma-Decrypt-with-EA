@@ -16,8 +16,9 @@ int main() {
 
     Population pop(cipher);
     for (size_t i = 0; i < NUMBER_OF_ITERATIONS; i++)
-        pop.NextGeneration();
-    pop.PlotData();
+        if (pop.NextGeneration())
+            break;
+    pop.PlotDataGnuplot();
 
     if (OUTPUT_DATA_FILES) {
         std::ofstream maxFit(MAXFIT_PATH), avgFit(AVGFIT_PATH), mutState(MUTSTATE_PATH);
