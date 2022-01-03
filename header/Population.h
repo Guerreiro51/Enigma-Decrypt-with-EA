@@ -28,7 +28,7 @@ class Population {
     void Mutate();
     void Elitism();
     void TournamentSelection();
-    bool NextGeneration();
+    void NextGeneration();
 
     void RandomPredation();
     void Genocide();

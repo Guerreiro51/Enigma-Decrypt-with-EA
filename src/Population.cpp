@@ -40,12 +40,11 @@ void Population::Evaluate() {
             curState = (curState + 1) % NUMBER_OF_STATES;
             stagnantCount = 0UL;
 
-            if(maxFit[genNumber-1] > 0.5 && curState == 2)
+            if (maxFit[genNumber - 1] > 0.5 && curState == 2)
                 curState = 0;
 
-            if(curState == 0)
+            if (curState == 0)
                 Genocide();
-
         }
     } else
         stagnantCount = 0UL;
@@ -78,28 +77,26 @@ void Population::Mutate() {
         citizens[i].Mutate(curState);
 }
 
-bool Population::NextGeneration() {
+void Population::NextGeneration() {
     genNumber++;
     // Elitism();
     TournamentSelection();
     Mutate();
     Evaluate();
 
-    if(!(genNumber % RANDOM_PREDATION_GEN))
+    if (!(genNumber % RANDOM_PREDATION_GEN))
         RandomPredation();
     if (!(genNumber % NUMBER_OF_ITERATIONS_TO_SHOW))
         ShowPop();
-
-    return abs(maxFit[genNumber - 1] - 0.017448f) < 1e-3f;
 }
 
 void Population::RandomPredation() {
-    for(size_t i = POP_SIZE - NUMBER_OF_EATEN; i < POP_SIZE; i++)
+    for (size_t i = POP_SIZE - NUMBER_OF_EATEN; i < POP_SIZE; i++)
         citizens[i].Init(cipher);
 }
 
 void Population::Genocide() {
-    for(size_t i = NUMBER_OF_PROTECTED; i < POP_SIZE; i++)
+    for (size_t i = NUMBER_OF_PROTECTED; i < POP_SIZE; i++)
         citizens[i].Init(cipher);
 }
 

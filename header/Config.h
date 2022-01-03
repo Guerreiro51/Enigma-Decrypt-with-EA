@@ -74,7 +74,7 @@ constexpr float SEARCH_SPACE[NUMBER_OF_GENES] = {NUMBER_OF_ROTORS_INSTALLED * fa
                                                  NUMBER_OF_REFLECTOR_TYPES};
 constexpr float SEARCH_SPACE_TOTAL = SEARCH_SPACE[0] * SEARCH_SPACE[1] * SEARCH_SPACE[2] * SEARCH_SPACE[3];
 
-static const size_t STATE_SIZE[NUMBER_OF_STATES] = {50, 30, 30, 1};
+static const size_t STATE_SIZE[NUMBER_OF_STATES] = {1000, 700, 1000, 10};
 /*
 static const size_t STATE_SIZE[NUMBER_OF_STATES] = {static_cast<size_t>(pow(SEARCH_SPACE[0], MUTATE_STATE_CHANCE[0][0]) * pow(SEARCH_SPACE[1], MUTATE_STATE_CHANCE[0][1]) * pow(SEARCH_SPACE[2], MUTATE_STATE_CHANCE[0][2]) * pow(SEARCH_SPACE[3], MUTATE_STATE_CHANCE[0][3])) / 3,
                                                     static_cast<size_t>(pow(SEARCH_SPACE[0], MUTATE_STATE_CHANCE[1][0]) * pow(SEARCH_SPACE[1], MUTATE_STATE_CHANCE[1][1]) * pow(SEARCH_SPACE[2], MUTATE_STATE_CHANCE[1][2]) * pow(SEARCH_SPACE[3], MUTATE_STATE_CHANCE[1][3])) / 3,

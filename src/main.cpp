@@ -16,15 +16,8 @@ int main() {
 
     Population pop(cipher);
     for (size_t i = 0; i < NUMBER_OF_ITERATIONS; i++)
-        if (pop.NextGeneration())
-            break;
-    pop.PlotDataGnuplot();
-
-    if (OUTPUT_DATA_FILES) {
-        std::ofstream maxFit(MAXFIT_PATH), avgFit(AVGFIT_PATH), mutState(MUTSTATE_PATH);
-        pop.OutputData(maxFit, avgFit, mutState);
-        pop.DumpData(maxFit, avgFit, mutState);
-    }
+        pop.NextGeneration();
+    pop.PlotDataMatplotlib();
 
     std::string output = pop.Citizens()[0].Gene().Decipher(cipher);
     std::cout << "Decrypted: " << output << "\n\n";
