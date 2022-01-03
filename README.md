@@ -1,5 +1,16 @@
 # Enigma-Decrypt-with-EA
 
+## Project members
+Alessandro de Freitas Guerreiro - 11233891
+
+Bruno Alvarenga Colturato - 11200251
+
+Eduardo Cavalari Valença - 11234381
+
+## Presentation link
+You can access a short video made by us explaining the project [here](https://github.com/Guerreiro51/Enigma-Decrypt-with-EA).
+
+## Description
 Our project aims to break the Enigma Machine using Evolutionary Algorithm (EA).
 
 The enigma machine was a cipher device developed and used in the 20th century to protect commercial, diplomatic, and military communication. It was employed extensively by Nazi Germany during World War II, in all branches of the German military. The Enigma machine was considered so secure that it was used to encipher the most top-secret messages. [[1]](https://en.wikipedia.org/wiki/Enigma_machine). 
@@ -14,11 +25,9 @@ If you want to know in more details how the enigma works you can watch [this vid
 
 In order for our EA to break the enigma, we decided to use as a fitness function the technique called [Index of Coincidence](https://en.wikipedia.org/wiki/Index_of_coincidence) or IOC, for short. This technique consists of counting the number of times that identical letters appear in the same position in a text and its formula is given by:
 
-<img src="https://latex.codecogs.com/svg.image?IOC&space;=&space;\frac{\sum^{26}_{i=1}&space;{n_i(n_i-1)}}{N&space;(N-1)/26}&space;" title="IOC = \frac{\sum^{26}_{i=1} {n_i(n_i-1)}}{N (N-1)/26} " />
+![index of coincidence](https://github.com/Guerreiro51/Enigma-Decrypt-with-EA/blob/main/images/ioc.png)
 
-Where N is the length of the text and n_1 through n_26 are the frequencies (as integers) of the 26 letters of the alphabet. 
-
-(If it's hard to see the formula, change you web browser theme to light mode).
+Where N is the length of the text and n_1 through n_26 are the frequencies (as integers) of the 26 letters of the alphabet.
 
 Each language has an expect value for the IOC. In this project we considered texts in English, whose expected value is 1.73. It is important to mention that the index of coincidence is a good technique for analyzing long texts and may fail with short texts.
 
@@ -28,8 +37,8 @@ We defined our fitness function as the difference between the IOC calculated by 
 
 In this project we used: crossover, mutation, adaptative mutation, tournament selection, random predation and genocide. The following images represent an example of a successfull execution of the code.
 
-![fitness](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
-![mutation state](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![fitness](https://github.com/Guerreiro51/Enigma-Decrypt-with-EA/blob/main/images/fitness.png)
+![mutation state](https://github.com/Guerreiro51/Enigma-Decrypt-with-EA/blob/main/images/mutState.png)
 
 ## How to build and run
 
