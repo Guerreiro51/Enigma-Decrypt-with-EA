@@ -3,11 +3,12 @@
 !*/
 /build
 
-# but allow c++ code
+# but allow c++ code and images
 !*.cpp
 !*.h
 !*.hpp
 !CMakeLists.txt
+!*.png
 
 !.gitignore
 !README.md
