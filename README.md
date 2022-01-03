@@ -28,8 +28,8 @@ We defined our fitness function as the difference between the IOC calculated by 
 
 In this project we used: crossover, mutation, adaptative mutation, tournament selection, random predation and genocide. The following images represent an example of a successfull execution of the code.
 
-![fitness](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
-![mutation state](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![fitness](https://github.com/Guerreiro51/Enigma-Decrypt-with-EA/blob/main/images/fitness.png)
+![mutation state](https://github.com/Guerreiro51/Enigma-Decrypt-with-EA/blob/main/images/mutState.png)
 
 ## How to build and run
 
