@@ -8,7 +8,7 @@ Bruno Alvarenga Colturato - 11200251
 Eduardo Cavalari Valença - 11234381
 
 ## Presentation link
-You can access a short video made by us explaining the project [here](https://github.com/Guerreiro51/Enigma-Decrypt-with-EA).
+You can access a short video made by us explaining the project [here](https://drive.google.com/file/d/1njUnaXKbUvw8z0Yc7uBOcd2nimkpdFGH/view?usp=sharing).
 
 ## Description
 Our project aims to break the Enigma Machine using Evolutionary Algorithm (EA).
